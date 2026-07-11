@@ -8,7 +8,7 @@ import Entity.Estudiante;
 /*
     Principio srp
  */
-public class ReporteCalificacionesImplementacion implements ReporteCalificaciones{
+public class ReporteCalificacionesImp implements ReporteCalificaciones{
 
     @Override
     public Calificacion generarReporte(Estudiante estudiante, Curso curso, double nota) {
