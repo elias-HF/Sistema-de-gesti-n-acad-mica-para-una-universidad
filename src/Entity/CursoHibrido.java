@@ -1,13 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Entity;
 
-/**
- *
- * @author USUARIO
- */
-public class CursoHibrido {
+
+public class CursoHibrido implements Curso{
+
+    @Override
+    public String getNombreCurso() {
+        return "Curso Hibrido";
+    }
+
+    @Override
+    public double calcularCosto() {
+        return 400.0;
+    }
+
+    @Override
+    public Curso clonar() {
+        return new CursoHibrido();
+    }
     
 }

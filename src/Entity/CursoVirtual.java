@@ -1,7 +1,6 @@
 package Entity;
 
 
-import Entity.Curso;
 
 /*
 Principio OCP
@@ -16,6 +15,11 @@ public class CursoVirtual implements Curso{
     @Override
     public String getNombreCurso() {
         return "Curso Virtual";
+    }
+
+    @Override
+    public Curso clonar() {
+        return new CursoVirtual();
     }
     
 }

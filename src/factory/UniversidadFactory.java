@@ -4,10 +4,16 @@
  */
 package factory;
 
+import Entity.Curso;
+import reportes.ImpresionReporte;
+import service.InscripcionService;
+
 /**
  *
  * @author USUARIO
  */
-public class UniversidadFactory {
-    
+public interface UniversidadFactory {
+    Curso crearCurso();
+    InscripcionService crearInscripcionService();
+    ImpresionReporte crearImpresion();
 }

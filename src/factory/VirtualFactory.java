@@ -4,10 +4,31 @@
  */
 package factory;
 
+import Entity.Curso;
+import Entity.CursoVirtual;
+import reportes.ImpresionReporte;
+import reportes.ImpresoraConsola;
+import service.InscripcionService;
+
 /**
  *
  * @author USUARIO
  */
-public class VirtualFactory {
+public class VirtualFactory implements UniversidadFactory{
+
+    @Override
+    public Curso crearCurso() {
+        return new CursoVirtual();
+    }
+
+    @Override
+    public InscripcionService crearInscripcionService() {
+        return new InscripcionService();
+    }
+
+    @Override
+    public ImpresionReporte crearImpresion() {
+        return new ImpresoraConsola();
+    }
     
 }

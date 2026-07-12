@@ -2,16 +2,21 @@ package dao;
 
 
 import Entity.Estudiante;
-import dao.EstudianteDAO;
+
 
 /*
 Principio SRP
  */
 public class EstudianteDAOImpl implements EstudianteDAO{
-
+    EntityManager em;
+    
     @Override
     public void guardar(Estudiante e) {
-        System.out.println("Guardando en la Base de Datos....");
+        em.getTransaction().begin();
+
+        em.persist(e);
+
+        em.getTransaction().commit();
     }
 
     @Override

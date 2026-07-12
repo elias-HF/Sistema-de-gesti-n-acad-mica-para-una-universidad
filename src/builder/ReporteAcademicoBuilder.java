@@ -4,10 +4,30 @@
  */
 package builder;
 
-/**
- *
- * @author USUARIO
- */
+import Entity.Calificacion;
+import Entity.ReporteAcademico;
+
+
 public class ReporteAcademicoBuilder {
+    private ReporteAcademico reporte;
+
+
+    public ReporteAcademicoBuilder() {
+        reporte = new ReporteAcademico();
+    }
+
+    public ReporteAcademicoBuilder calificacion(Calificacion calificacion) {
+        reporte.setCalificacion(calificacion);
+        return this;
+    }
+
+    public ReporteAcademicoBuilder observacion(String observacion) {
+        reporte.setObservacion(observacion);
+        return this;
+    }
+
+    public ReporteAcademico build() {
+        return reporte;
+    }
     
 }

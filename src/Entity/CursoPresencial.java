@@ -1,8 +1,5 @@
 package Entity;
 
-
-import Entity.Curso;
-
 /*
 principio OCP
 */
@@ -16,6 +13,11 @@ public class CursoPresencial implements Curso{
     @Override
     public String getNombreCurso() {
         return "Curso Presencial";
+    }
+
+    @Override
+    public Curso clonar() {
+        return new CursoPresencial();
     }
     
 }

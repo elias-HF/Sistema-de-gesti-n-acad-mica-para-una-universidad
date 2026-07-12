@@ -1,12 +1,10 @@
 package Entity;
 
-
-import Entity.Curso;
-import Entity.Estudiante;
-
 /*
  Principio SRP
  */
+@Entity
+@Table(name="calificacion")
 public class Calificacion {
     private Estudiante estudiante;
     private Curso curso;

@@ -25,6 +25,7 @@ public class Main {
         EstudianteDAO eDB = new EstudianteDAOImpl();
         EstudianteService estudianteService = new EstudianteService(eDB);
         MySQLDataBase db = MySQLDataBase.getInstancia();
+        db.conectar();
         Estudiante e = new Estudiante(1, "Elias", "Elias@gmail.com");
         
 

@@ -1,6 +1,7 @@
 package factory;
 
 import Entity.Curso;
+import Entity.CursoHibrido;
 import Entity.CursoVirtual;
 import Entity.CursoPresencial;
 
@@ -20,6 +21,10 @@ public class CursoFactory {
             case "virtual":
                 
                 return new CursoVirtual();
+                
+            case "hibrido":
+                
+                return new CursoHibrido();    
                 
             default:
                 throw new IllegalArgumentException("Tipo de curso no valido");
