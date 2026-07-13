@@ -4,10 +4,21 @@
  */
 package dao;
 
+import Entity.Calificacion;
+import java.util.List;
+
 /**
  *
  * @author USUARIO
  */
-public class CalificacionDAO {
-    
+public interface CalificacionDAO {
+    void registrar(Calificacion calificacion);
+
+    void actualizar(Calificacion calificacion);
+
+    void eliminar(int id);
+
+    Calificacion buscarPorId(int id);
+
+    List<Calificacion> listar();
 }

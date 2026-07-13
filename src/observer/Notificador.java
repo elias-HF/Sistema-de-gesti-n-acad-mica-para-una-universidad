@@ -4,10 +4,30 @@
  */
 package observer;
 
+import Entity.Calificacion;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author USUARIO
  */
 public class Notificador {
-    
+    private List<Observador> observadores = new ArrayList<>();
+
+    public void agregarObservador(Observador observador){
+        observadores.add(observador);
+    }
+
+    public void eliminarObservador(Observador observador){
+        observadores.remove(observador);
+    }
+
+    public void notificar(Calificacion calificacion){
+
+        for(Observador o : observadores){
+            o.actualizar(calificacion);
+        }
+
+    }
 }

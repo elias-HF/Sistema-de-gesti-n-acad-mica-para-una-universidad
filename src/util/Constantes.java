@@ -9,5 +9,20 @@ package util;
  * @author USUARIO
  */
 public class Constantes {
+    //base de datos Mysql
+    //String url = "jdbc:oracle:thin:@172.17.2.243:3306:XE"; se cambio el puerto y los driver por el de MySql
+    public static final String URL =
+            "jdbc:mysql://localhost:3307/appUni?useSSL=false&serverTimezone=UTC";
     
+    // obtener objeto conecion
+
+    public static final String USUARIO =
+            "root";
+
+    public static final String PASSWORD =
+            "admin";
+    
+    //Notas
+    public static final double NOTA_MINIMA = 0;
+    public static final double NOTA_MAXIMA = 20;
 }

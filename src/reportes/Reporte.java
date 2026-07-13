@@ -8,6 +8,6 @@ package reportes;
  *
  * @author USUARIO
  */
-public class Reporte {
-    
+public interface Reporte {
+    void mostrarReporte();
 }

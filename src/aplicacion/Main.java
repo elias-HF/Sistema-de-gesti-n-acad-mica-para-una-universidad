@@ -7,7 +7,7 @@ import Entity.Calificacion;
 import reportes.ImpresoraConsola;
 import reportes.ImpresionReporte;
 import facade.SistemaAcademicoFacade;
-import service.CalificacionesService;
+import service.CalificacionService;
 import service.ReporteCalificacionesImp;
 import Entity.Curso;
 import Entity.Estudiante;
@@ -34,7 +34,7 @@ public class Main {
         InscripcionService inscripcionService = new InscripcionService();
         
 
-        CalificacionesService calificacionService = new CalificacionesService();
+        CalificacionService calificacionService = new CalificacionService();
         
         
         

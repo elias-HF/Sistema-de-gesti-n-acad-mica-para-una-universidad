@@ -4,10 +4,23 @@
  */
 package composite;
 
+import Entity.Curso;
+
 /**
  *
  * @author USUARIO
  */
-public class CursoLeaf {
+public class CursoLeaf implements ComponenteAcademico{
+    private Curso curso;
+    
+    public CursoLeaf(Curso curso){
+        this.curso = curso;
+    }
+
+    @Override
+    public void mostrarEstructura() {
+       System.out.println("Curso: " + curso.getNombreCurso());
+    }
+    
     
 }

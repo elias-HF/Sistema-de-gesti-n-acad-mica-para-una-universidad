@@ -1,8 +1,15 @@
 package service;
 
+import Entity.Calificacion;
+
 /*
 Principio ISP
 */
-public interface ReporteService {
-    void generarReporteEstudiantes();
+public class ReporteService {
+    
+    public void generarReporte(Calificacion calificacion){
+
+        System.out.println("Generando reporte...");
+
+    }
 }

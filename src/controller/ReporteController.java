@@ -4,10 +4,21 @@
  */
 package controller;
 
+import Entity.Calificacion;
+import service.ReporteService;
+
 /**
  *
  * @author USUARIO
  */
 public class ReporteController {
-    
+    private ReporteService reporteService;
+
+    public ReporteController(ReporteService reporteService){
+        this.reporteService = reporteService;
+    }
+
+    public void generarReporte(Calificacion calificacion){
+        reporteService.generarReporte(calificacion);
+    }
 }

@@ -1,7 +1,8 @@
 package facade;
 
 
-import service.CalificacionesService;
+import Entity.Calificacion;
+import service.CalificacionService;
 import Entity.Curso;
 import Entity.Estudiante;
 import service.InscripcionService;
@@ -14,20 +15,30 @@ public class SistemaAcademicoFacade {
     */
     private EstudianteService estudianteService;
     private InscripcionService inscripcionService;
-    private CalificacionesService calificacionService;
+    private CalificacionService calificacionService;
 
-    public SistemaAcademicoFacade(EstudianteService estudianteService, InscripcionService inscripcionService, CalificacionesService calificacionService) {
+    public SistemaAcademicoFacade(
+            EstudianteService estudianteService,
+            InscripcionService inscripcionService,
+            CalificacionService calificacionService) {
+
         this.estudianteService = estudianteService;
         this.inscripcionService = inscripcionService;
         this.calificacionService = calificacionService;
     }
-    
-    public void procesoAcademico(Estudiante e, Curso c, double nota){
-        estudianteService.registrarEstudiante(e);
 
-        inscripcionService.inscribir(e, c);
+    public void procesoAcademico(Estudiante estudiante,
+                                 Curso curso,
+                                 double nota) {
 
-        calificacionService.asignarNota(e, c, nota);
+        estudianteService.registrarEstudiante(estudiante);
+
+        inscripcionService.inscribir(estudiante, curso);
+
+        Calificacion calificacion =
+                new Calificacion(estudiante, curso, nota);
+
+        calificacionService.registrarCalificacion(calificacion);
 
         System.out.println("Proceso académico completado.");
     }

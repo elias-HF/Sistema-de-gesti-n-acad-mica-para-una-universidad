@@ -8,6 +8,6 @@ package composite;
  *
  * @author USUARIO
  */
-public class ComponenteAcademico {
-    
+public interface ComponenteAcademico {
+    void mostrarEstructura();
 }

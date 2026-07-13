@@ -9,7 +9,10 @@ package adapter;
  * @author USUARIO
  */
 public class SistemaNotasAntiguo {
-    public void registrar(double nota){
+    public void registrarNota(double nota){
+        
+        System.out.println("================================");
         System.out.println("Nota registrada: " + nota);
+        System.out.println("================================");
     }
 }

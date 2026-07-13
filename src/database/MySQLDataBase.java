@@ -1,5 +1,8 @@
 package database;
 
+import java.sql.Connection;
+
+
 /*
  Principio DIP
 Patron Singlethon
@@ -7,6 +10,8 @@ Patron Singlethon
 public class MySQLDataBase implements DataBase{
     
     private static MySQLDataBase instancia;
+    
+    private Connection conexion;
     
     private MySQLDataBase(){}
     
@@ -19,7 +24,25 @@ public class MySQLDataBase implements DataBase{
     
     @Override
     public void conectar() {
-        System.out.println("Conectandose a MySQL...");
+         try{
+
+            conexion = AccesoDB.getConnection();
+
+            System.out.println("Conexión exitosa a MySQL.");
+
+        }catch(Exception e){
+
+            System.out.println("Error al conectar.");
+
+            e.printStackTrace();
+
+        }
+    }
+    
+    public Connection getConexion(){
+
+        return conexion;
+
     }
     
 }

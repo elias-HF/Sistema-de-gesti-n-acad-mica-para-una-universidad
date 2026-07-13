@@ -19,7 +19,8 @@ public class CalificacionAdapter implements RegistroCalificacion{
     
     @Override
     public void registrarCalificacion(Calificacion c) {
-        sistema.registrar(c.getNota());
+        sistema.registrarNota(
+                c.getNota());
     }
     
 }

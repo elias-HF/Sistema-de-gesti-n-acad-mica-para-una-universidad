@@ -7,6 +7,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import util.Constantes;
 
 /**
  *
@@ -14,16 +15,18 @@ import java.sql.SQLException;
  */
 public class AccesoDB {
     public static Connection getConnection() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Connection cn;
+
         try {
-            //cargar el driver en memoria
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            // obtener objto conecion
-            String url = "jdbc:mysql://localhost:3307/appUni?useSSL=false&serverTimezone=UTC";
-            //String url = "jdbc:oracle:thin:@172.17.2.243:3306:XE"; se cambio el puerto y los driver por el de MySql
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            return DriverManager.getConnection(
+
+                Constantes.URL,
+
+                Constantes.USUARIO,
+
+                Constantes.PASSWORD);
             
-            cn = DriverManager.getConnection(url, "root", "admin");
-            return cn;
         } catch (ClassNotFoundException | SQLException e) {
             throw e;
         }

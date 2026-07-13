@@ -4,10 +4,21 @@
  */
 package dao;
 
+import Entity.Curso;
+import java.util.List;
+
 /**
  *
  * @author USUARIO
  */
-public class CursoDAO {
-    
+public interface CursoDAO {
+    void registrar(Curso curso);
+
+    void actualizar(Curso curso);
+
+    void eliminar(int id);
+
+    Curso buscarPorId(int id);
+
+    List<Curso> listar();
 }

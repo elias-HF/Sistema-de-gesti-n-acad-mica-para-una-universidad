@@ -2,14 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package observer;
-
-import Entity.Calificacion;
+package reportes;
 
 /**
  *
  * @author USUARIO
  */
-public interface Observador {
-     void actualizar(Calificacion calificacion);
+public abstract class ReporteDecorador implements Reporte{
+    protected Reporte reporte;
+
+    public ReporteDecorador(Reporte reporte){
+        this.reporte = reporte;
+    }
 }

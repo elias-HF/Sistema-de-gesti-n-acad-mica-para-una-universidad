@@ -8,6 +8,19 @@ package reportes;
  *
  * @author USUARIO
  */
-public class ReporteConObservaciones {
+public class ReporteConObservaciones extends ReporteDecorador{
+
+    public ReporteConObservaciones(Reporte reporte) {
+        super(reporte);
+    }
+    
+    @Override
+    public void mostrarReporte(){
+
+    reporte.mostrarReporte();
+
+    System.out.println("Observaciones: ...");
+
+}
     
 }
