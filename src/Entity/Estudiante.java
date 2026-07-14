@@ -6,8 +6,7 @@ Principio SRP
 //@Entity
 //@Table(name="estudiante")
 public class Estudiante {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private int id;
     private String nombre;
     private String correo;
@@ -35,6 +34,20 @@ public class Estudiante {
     public void setCarrera(Carrera carrera) {
         this.carrera = carrera;
     }
+    public void setNombre(String nombre){
+    this.nombre = nombre;
+    }
+
+    public void setCorreo(String correo){
+        this.correo = correo;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
     
-    
+    @Override
+    public String toString(){
+        return nombre;
+    }
 }

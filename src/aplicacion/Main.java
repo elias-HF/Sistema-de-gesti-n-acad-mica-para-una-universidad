@@ -18,6 +18,8 @@ import service.EstudianteService;
 import factory.CursoFactory;
 import database.MySQLDataBase;
 import dao.EstudianteDAO;
+import reportes.ImpresionReporte;
+import reportes.ImpresoraConsola;
 
 
 public class Main {
@@ -42,13 +44,15 @@ public class Main {
 
     ReporteCalificaciones reporteService =
             new ReporteCalificacionesImp();
-
+    ImpresionReporte impresora = new ImpresoraConsola();
+    
+    
     SistemaAcademicoFacade facade =
             new SistemaAcademicoFacade(
                     estudianteService,
                     inscripcionService,
                     calificacionService,
-                    reporteService);
+                    reporteService,impresora);
 
     Facultad facultad =
             new Facultad(1, "Ingeniería");

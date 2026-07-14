@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Entity;
+
+import java.time.LocalDate;
 
 /**
  *
@@ -11,19 +10,18 @@ package Entity;
 public class ReporteAcademico {
 
     private int id;
-
     private Calificacion calificacion;
-
     private String observacion;
-
+    private LocalDate fechaGeneracion;
+    
     public ReporteAcademico() {
     }
     
-    public ReporteAcademico(int id,Calificacion calificacion,String observacion) {
+    public ReporteAcademico(int id,Calificacion calificacion,String observacion, LocalDate fechaGeneracion) {
         this.id = id;
         this.calificacion = calificacion;
         this.observacion = observacion;
-
+        this.fechaGeneracion = fechaGeneracion;
     }
 
     
@@ -49,6 +47,14 @@ public class ReporteAcademico {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public LocalDate getFechaGeneracion() {
+        return fechaGeneracion;
+    }
+
+    public void setFechaGeneracion(LocalDate fechaGeneracion) {
+        this.fechaGeneracion = fechaGeneracion;
     }
     
     

@@ -7,7 +7,6 @@ import Entity.Curso;
 import Entity.Estudiante;
 import Entity.Inscripcion;
 import reportes.ImpresionReporte;
-import reportes.ImpresoraConsola;
 import service.InscripcionService;
 import service.EstudianteService;
 import service.ReporteCalificaciones;
@@ -21,18 +20,21 @@ public class SistemaAcademicoFacade {
     private InscripcionService inscripcionService;
     private CalificacionService calificacionService;
     private ReporteCalificaciones reporteService;
-
+    private ImpresionReporte impresora;
+    
     public SistemaAcademicoFacade(
-            EstudianteService estudianteService,
-            InscripcionService inscripcionService,
-            CalificacionService calificacionService,
-            ReporteCalificaciones reporteService) {
+        EstudianteService estudianteService,
+        InscripcionService inscripcionService,
+        CalificacionService calificacionService,
+        ReporteCalificaciones reporteService,
+        ImpresionReporte impresora) {
 
         this.estudianteService = estudianteService;
         this.inscripcionService = inscripcionService;
         this.calificacionService = calificacionService;
         this.reporteService = reporteService;
-    }
+        this.impresora = impresora;
+}
 
     public void procesoAcademico(Estudiante estudiante,
                                  Curso curso,
@@ -59,9 +61,6 @@ public class SistemaAcademicoFacade {
                 reporteService.generarReporte(calificacion);
 
         // Imprimir reporte
-        ImpresionReporte impresora =
-                new ImpresoraConsola();
-
         impresora.imprimirReporteCalificacion(reporte);
 
         System.out.println();

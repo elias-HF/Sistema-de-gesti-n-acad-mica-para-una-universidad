@@ -9,7 +9,7 @@ public class CursoVirtual extends CursoBase{
 
     public CursoVirtual(){
 
-        super(0, "Curso Presencial", 500, "Presencial", null);
+        super(0, "Curso Virtual", 300, "Virtual", null);
 
     }
 
