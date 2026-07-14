@@ -3,8 +3,8 @@ package Entity;
 /*
  Principio SRP
  */
-@Entity
-@Table(name="calificacion")
+//@Entity
+//@Table(name="calificacion")
 public class Calificacion {
     private Estudiante estudiante;
     private Curso curso;

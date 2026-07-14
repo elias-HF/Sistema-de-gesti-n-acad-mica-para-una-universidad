@@ -3,8 +3,8 @@ package Entity;
 /*
 Principio SRP
 */
-@Entity
-@Table(name="estudiante")
+//@Entity
+//@Table(name="estudiante")
 public class Estudiante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
