@@ -2,21 +2,19 @@
 package Entity;
 
 
-public class CursoHibrido implements Curso{
+public class CursoHibrido extends CursoBase{
 
-    @Override
-    public String getNombreCurso() {
-        return "Curso Hibrido";
+    public CursoHibrido(){
+
+        super(0,"Curso Híbrido",400,"Híbrido",null);
+
     }
 
     @Override
-    public double calcularCosto() {
-        return 400.0;
-    }
+    public Curso clonar(){
 
-    @Override
-    public Curso clonar() {
         return new CursoHibrido();
+
     }
     
 }

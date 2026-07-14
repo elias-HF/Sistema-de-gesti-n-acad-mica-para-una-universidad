@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author USUARIO
  */
-public class CalificacionDAOImp implements CalificacionDAO{
+public class CalificacionDAOImpl implements CalificacionDAO{
     //se cambiaran por sus respectivos procedimientos almacenados
     @Override
     public void registrar(Calificacion calificacion) {

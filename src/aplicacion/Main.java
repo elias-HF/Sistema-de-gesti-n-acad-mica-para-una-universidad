@@ -3,14 +3,16 @@ package aplicacion;
 
 import service.ReporteCalificaciones;
 import dao.EstudianteDAOImpl;
-import Entity.Calificacion;
-import reportes.ImpresoraConsola;
-import reportes.ImpresionReporte;
+import Entity.Carrera;
 import facade.SistemaAcademicoFacade;
 import service.CalificacionService;
 import service.ReporteCalificacionesImp;
 import Entity.Curso;
+import Entity.CursoBase;
 import Entity.Estudiante;
+import Entity.Facultad;
+import dao.CalificacionDAO;
+import dao.CalificacionDAOImpl;
 import service.InscripcionService;
 import service.EstudianteService;
 import factory.CursoFactory;
@@ -22,38 +24,60 @@ public class Main {
 
     public static void main(String[] args) {
     
-        EstudianteDAO eDB = new EstudianteDAOImpl();
-        EstudianteService estudianteService = new EstudianteService(eDB);
+
         MySQLDataBase db = MySQLDataBase.getInstancia();
-        db.conectar();
-        Estudiante e = new Estudiante(1, "Elias", "Elias@gmail.com");
-        
+    db.conectar();
 
-        Curso curso = CursoFactory.crearCurso("presencial");
+    EstudianteDAO estudianteDAO = new EstudianteDAOImpl();
+    CalificacionDAO calificacionDAO = new CalificacionDAOImpl();
 
-        InscripcionService inscripcionService = new InscripcionService();
-        
+    EstudianteService estudianteService =
+            new EstudianteService(estudianteDAO);
 
-        CalificacionService calificacionService = new CalificacionService();
-        
-        
-        
-        ReporteCalificaciones reporte = new ReporteCalificacionesImp();
-        
-        SistemaAcademicoFacade facade =
-        new SistemaAcademicoFacade(
-                estudianteService,
-                inscripcionService,
-                calificacionService);
+    InscripcionService inscripcionService =
+            new InscripcionService();
 
-        facade.procesoAcademico(e, curso, 18);
-        
-        // Generar datos del reporte
-        Calificacion calificacion = reporte.generarReporte(e, curso, 18);
+    CalificacionService calificacionService =
+            new CalificacionService(calificacionDAO);
 
-        ImpresionReporte impresora = new ImpresoraConsola();
-        impresora.imprimirReporteCalificacion(calificacion);
-        
+    ReporteCalificaciones reporteService =
+            new ReporteCalificacionesImp();
+
+    SistemaAcademicoFacade facade =
+            new SistemaAcademicoFacade(
+                    estudianteService,
+                    inscripcionService,
+                    calificacionService,
+                    reporteService);
+
+    Facultad facultad =
+            new Facultad(1, "Ingeniería");
+
+    Carrera carrera =
+            new Carrera(
+                    1,
+                    "Ingeniería de Sistemas",
+                    facultad);
+
+    Estudiante estudiante =
+            new Estudiante(
+                    1,
+                    "Elias",
+                    "elias@gmail.com",
+                    carrera);
+
+    Curso curso =
+            CursoFactory.crearCurso("presencial");
+
+    ((CursoBase) curso).setCarrera(carrera);
+
+    facade.procesoAcademico(
+            estudiante,
+            curso,
+            18);
+
     }
+        
+    
     
 }

@@ -5,16 +5,12 @@ package Entity;
 /*
 Principio OCP
  */
-public class CursoVirtual implements Curso{
+public class CursoVirtual extends CursoBase{
 
-    @Override
-    public double calcularCosto() {
-        return 300;
-    }
+    public CursoVirtual(){
 
-    @Override
-    public String getNombreCurso() {
-        return "Curso Virtual";
+        super(0, "Curso Presencial", 500, "Presencial", null);
+
     }
 
     @Override

@@ -19,30 +19,35 @@ public class CalificacionService {
         this.calificacionDAO = calificacionDAO;
     }
 
-    public void registrarCalificacion(Calificacion calificacion) {
+    public void registrarCalificacion(Calificacion calificacion){
 
-        if (!Validaciones.validarNota(calificacion.getNota())) {
-            throw new IllegalArgumentException("La nota debe estar entre 0 y 20.");
+        if(!Validaciones.validarNota(calificacion.getNota())){
+            throw new IllegalArgumentException(
+                    "La nota debe estar entre 0 y 20.");
         }
 
         calificacionDAO.registrar(calificacion);
+
+        System.out.println("Calificación registrada.");
+
     }
 
-    public void actualizarCalificacion(Calificacion calificacion) {
+    public void actualizarCalificacion(Calificacion calificacion){
         calificacionDAO.actualizar(calificacion);
     }
 
-    public void eliminarCalificacion(int id) {
+    public void eliminarCalificacion(int id){
         calificacionDAO.eliminar(id);
     }
 
-    public Calificacion buscarCalificacion(int id) {
+    public Calificacion buscarCalificacion(int id){
         return calificacionDAO.buscarPorId(id);
     }
 
-    public List<Calificacion> listarCalificaciones() {
+    public List<Calificacion> listarCalificaciones(){
         return calificacionDAO.listar();
     }
+
     
     
 }

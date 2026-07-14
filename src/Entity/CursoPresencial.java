@@ -3,18 +3,14 @@ package Entity;
 /*
 principio OCP
 */
-public class CursoPresencial implements Curso{
+public class CursoPresencial extends CursoBase{
+    
+    public CursoPresencial(){
 
-    @Override
-    public double calcularCosto() {
-        return 500;
+        super(0, "Curso Presencial", 500, "Presencial", null);
+
     }
-
-    @Override
-    public String getNombreCurso() {
-        return "Curso Presencial";
-    }
-
+    
     @Override
     public Curso clonar() {
         return new CursoPresencial();
