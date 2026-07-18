@@ -12,7 +12,7 @@ public class Constantes {
     //base de datos Mysql
     //String url = "jdbc:oracle:thin:@172.17.2.243:3306:XE"; se cambio el puerto y los driver por el de MySql
     public static final String URL =
-            "jdbc:mysql://localhost:3307/appEmpresa?useSSL=false&serverTimezone=UTC";
+            "jdbc:mysql://localhost:3307/sistema_Academico?useSSL=false&serverTimezone=UTC";
                                         //cambiar "appEmpresa" por el nombre de la db.              
     // obtener objeto conecion
 
