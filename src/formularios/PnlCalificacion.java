@@ -37,6 +37,8 @@ public class PnlCalificacion extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        txtId = new javax.swing.JTextField();
+        txtNota = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -53,7 +55,7 @@ public class PnlCalificacion extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("ID");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 108, -1, -1));
 
@@ -65,21 +67,21 @@ public class PnlCalificacion extends javax.swing.JPanel {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inscripcion", "Item 2", "Item 3", "Item 4" }));
         add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("Nota");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton2.setText("Registrar");
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton3.setText("Actualizar");
-        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, -1, -1));
+        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, -1));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton4.setText("Eliminar");
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, -1, -1));
+        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,6 +97,12 @@ public class PnlCalificacion extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTable2);
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 730, 300));
+
+        txtId.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 140, -1));
+
+        txtNota.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 90, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -110,5 +118,7 @@ public class PnlCalificacion extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNota;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,24 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dao;
 
 import Entity.Curso;
+import Entity.CursoBase;
 import java.util.List;
 
-/**
- *
- * @author USUARIO
- */
+
 public interface CursoDAO {
-    void registrar(Curso curso);
+    boolean registrar(CursoBase curso);
 
-    void actualizar(Curso curso);
+    boolean actualizar(CursoBase curso);
 
-    void eliminar(int id);
+    boolean eliminar(int id);
 
-    Curso buscarPorId(int id);
+    CursoBase buscar(int id);
 
-    List<Curso> listar();
+    List<CursoBase> listar();
 }

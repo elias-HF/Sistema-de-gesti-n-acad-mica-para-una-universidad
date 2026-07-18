@@ -10,16 +10,15 @@ public abstract class CursoBase implements Curso{
     protected String nombreCurso;
     protected double costo;
     protected String tipoCurso;
-    protected Carrera carrera;
+
     
     public CursoBase(){}
 
-    public CursoBase(int id,String nombreCurso,double costo,String tipoCurso, Carrera carrera){
+    public CursoBase(int id,String nombreCurso,double costo,String tipoCurso){
         this.id = id;
         this.nombreCurso = nombreCurso;
         this.costo = costo;
         this.tipoCurso = tipoCurso;
-        this.carrera = carrera;
     }
     
     public int getId() {
@@ -38,7 +37,11 @@ public abstract class CursoBase implements Curso{
     public void setNombreCurso(String nombreCurso) {
         this.nombreCurso = nombreCurso;
     }
-
+    
+    public double getCosto() {
+        return costo;
+    }
+    
     @Override
     public double calcularCosto() {
         return costo;
@@ -56,13 +59,8 @@ public abstract class CursoBase implements Curso{
         this.tipoCurso = tipoCurso;
     }
 
-    public Carrera getCarrera() {
-        return carrera;
-    }
-
-    public void setCarrera(Carrera carrera) {
-        this.carrera = carrera;
-    }
+    
+    
     
     @Override
         public String toString() {

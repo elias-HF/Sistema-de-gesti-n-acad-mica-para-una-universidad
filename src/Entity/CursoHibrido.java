@@ -4,17 +4,15 @@ package Entity;
 
 public class CursoHibrido extends CursoBase{
 
-    public CursoHibrido(){
+    public CursoHibrido() {
 
-        super(0,"Curso Híbrido",400,"Híbrido",null);
+        super(0, "Curso Hibrido", 400, "Hibrido");
 
     }
 
     @Override
-    public Curso clonar(){
-
+    public Curso clonar() {
         return new CursoHibrido();
-
     }
     
 }

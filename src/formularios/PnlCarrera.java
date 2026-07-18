@@ -136,18 +136,38 @@ public class PnlCarrera extends javax.swing.JPanel {
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
         add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
 
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
 
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -223,23 +243,26 @@ public class PnlCarrera extends javax.swing.JPanel {
     }//GEN-LAST:event_btnMostrarTodo1ActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if(txtBuscar.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this,"Ingrese un ID.");
+        if(txtBuscar.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Ingrese un ID");
             return;
         }
+        
+        int id = Integer.parseInt(txtBuscar.getText());
 
-        int id=Integer.parseInt(txtBuscar.getText());
+        Carrera c = controller.buscar(id);
 
-        Carrera carrera = controller.buscar(id);
+        if(c!=null){
 
-        if(carrera!=null){
+            txtId.setText(String.valueOf(c.getId()));
 
-            txtId.setText(String.valueOf(carrera.getId()));
-            txtNombre.setText(carrera.getNombre());
+            txtNombre.setText(c.getNombre());
+
+            cmbFacultad.setSelectedItem(c.getFacultad());
 
         }else{
 
-            JOptionPane.showMessageDialog(this,"No existe.");
+            JOptionPane.showMessageDialog(this,"No existe");
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -247,6 +270,87 @@ public class PnlCarrera extends javax.swing.JPanel {
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if(txtNombre.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Ingrese el nombre");
+            return;
+        }
+
+        if(cmbFacultad.getSelectedItem()==null){
+            JOptionPane.showMessageDialog(this,"Seleccione una facultad");
+            return;
+        }
+        
+        Facultad facultad =
+        (Facultad)cmbFacultad.getSelectedItem();
+
+        Carrera carrera = new Carrera();
+
+        carrera.setNombre(txtNombre.getText());
+
+        carrera.setFacultad(facultad);
+
+        if(controller.registrar(carrera)){
+
+            JOptionPane.showMessageDialog(this,"Carrera registrada");
+
+            listarCarreras();
+
+            limpiar();
+
+        }else{
+
+            JOptionPane.showMessageDialog(this,"Error");
+
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        Facultad facultad =
+        (Facultad)cmbFacultad.getSelectedItem();
+
+        Carrera carrera = new Carrera();
+
+        carrera.setId(Integer.parseInt(txtId.getText()));
+        carrera.setNombre(txtNombre.getText());
+        carrera.setFacultad(facultad);
+
+        if(controller.actualizar(carrera)){
+
+            JOptionPane.showMessageDialog(this,"Actualizado");
+
+            listarCarreras();
+
+            limpiar();
+
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int id = Integer.parseInt(txtId.getText());
+
+        if(controller.eliminar(id)){
+
+            JOptionPane.showMessageDialog(this,"Eliminado");
+
+            listarCarreras();
+
+            limpiar();
+
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtId.setText("");
+
+        txtNombre.setText("");
+
+        txtBuscar.setText("");
+
+        if(cmbFacultad.getItemCount()>0)
+            cmbFacultad.setSelectedIndex(0);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

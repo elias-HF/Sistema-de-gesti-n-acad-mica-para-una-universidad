@@ -1,22 +1,73 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package formularios;
 
-/**
- *
- * @author USUARIO
- */
-public class PnlCurso extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PnlCurso
-     */
+
+import Entity.CursoBase;
+import Entity.CursoHibrido;
+import Entity.CursoPresencial;
+import Entity.CursoVirtual;
+import controller.CursoController;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+import javax.swing.table.DefaultTableModel;
+import service.CursoService;
+
+
+public class PnlCurso extends javax.swing.JPanel {
+    private CursoController controller;
+    private DefaultTableModel modelo;
+    
     public PnlCurso() {
         initComponents();
-    }
+        
 
+        controller = new CursoController(new CursoService());
+        modelo = new DefaultTableModel();
+        String ids[] = {"ID", "Nombre", "Tipo", "Costo"};
+        modelo.setColumnIdentifiers(ids);
+
+
+        tblCursos.setModel(modelo);
+        
+        listarCursos();
+        limpiar();
+    }
+    private void limpiar(){
+
+        txtId.setText("");
+        txtNombre.setText("");
+
+        txtCosto.setText("");
+
+        cmbTipo.setSelectedIndex(0);
+
+        txtBuscar.setText("");
+
+    }
+    
+    private void listarCursos(){
+
+        modelo.setRowCount(0);
+
+        List<CursoBase> lista = controller.listar();
+
+        for(CursoBase c : lista){
+
+            modelo.addRow(new Object[]{
+
+                c.getId(),
+                c.getNombreCurso(),
+                c.getTipoCurso(),
+                c.getCosto()
+
+            });
+
+        }
+
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,6 +78,7 @@ public class PnlCurso extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -39,34 +91,49 @@ public class PnlCurso extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCursos = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
+        txtId = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtCosto = new javax.swing.JTextField();
+        cmbTipo = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        btnMostrarTodo1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
 
         jLabel2.setText("jLabel2");
+
+        jTextField3.setText("jTextField3");
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Gestion de Cursos");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 17, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("ID");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 83, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setText("Nombre");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 117, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setText("Costo");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 83, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel6.setText("Tipo");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 117, -1, -1));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, -1, -1));
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnRegistrar.setText("Registrar");
-        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnActualizar.setText("Actualizar");
@@ -75,7 +142,7 @@ public class PnlCurso extends javax.swing.JPanel {
                 btnActualizarActionPerformed(evt);
             }
         });
-        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
+        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -84,11 +151,16 @@ public class PnlCurso extends javax.swing.JPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
-        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, -1, -1));
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, -1));
 
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnLimpiar.setText("Limpiar");
-        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, -1));
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, -1, -1));
 
         tblCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,27 +175,194 @@ public class PnlCurso extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblCursos);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 740, 280));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 790, 250));
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "data", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, -1, -1));
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, -1, -1));
+
+        txtId.setEditable(false);
+        txtId.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 180, -1));
+
+        txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 180, -1));
+
+        txtCosto.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 160, -1));
+
+        cmbTipo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(cmbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 90, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel7.setText("Buscar por ID:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
+
+        btnMostrarTodo1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnMostrarTodo1.setText("Mostrar Todo");
+        btnMostrarTodo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodo1ActionPerformed(evt);
+            }
+        });
+        add(btnMostrarTodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, -1, -1));
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, -1));
+
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 200, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+        CursoBase curso;
+
+        String tipo = cmbTipo.getSelectedItem().toString();
+
+        switch(tipo){
+
+            case "Presencial":
+                curso = new CursoPresencial();
+                break;
+
+            case "Virtual":
+                curso = new CursoVirtual();
+                break;
+
+            default:
+                curso = new CursoHibrido();
+
+        }
+
+        curso.setId(Integer.parseInt(txtId.getText()));
+
+        curso.setNombreCurso(txtNombre.getText());
+
+        curso.setTipoCurso(tipo);
+
+        curso.setCosto(Double.parseDouble(txtCosto.getText()));
+
+        if(controller.actualizar(curso)){
+
+            JOptionPane.showMessageDialog(this,"Actualizado");
+
+            listarCursos();
+
+            limpiar();
+
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        int id = Integer.parseInt(txtId.getText());
+
+        if(controller.eliminar(id)){
+
+            JOptionPane.showMessageDialog(this,"Eliminado");
+
+            listarCursos();
+
+            limpiar();
+
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnMostrarTodo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodo1ActionPerformed
+        listarCursos();
+        limpiar();
+    }//GEN-LAST:event_btnMostrarTodo1ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        int id = Integer.parseInt(txtBuscar.getText());
+
+        CursoBase curso = controller.buscar(id);
+
+        if(curso!=null){
+
+            txtId.setText(String.valueOf(curso.getId()));
+
+            txtNombre.setText(curso.getNombreCurso());
+
+            txtCosto.setText(String.valueOf(curso.getCosto()));
+
+            cmbTipo.setSelectedItem(curso.getTipoCurso());
+
+        }else{
+
+            JOptionPane.showMessageDialog(this,"No existe");
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        CursoBase curso;
+
+        String tipo = cmbTipo.getSelectedItem().toString();
+
+        switch(tipo){
+
+            case "Presencial":
+                curso = new CursoPresencial();
+                break;
+
+            case "Virtual":
+                curso = new CursoVirtual();
+                break;
+
+            default:
+                curso = new CursoHibrido();
+
+        }
+
+        curso.setNombreCurso(txtNombre.getText());
+
+        curso.setTipoCurso(tipo);
+
+        curso.setCosto(Double.parseDouble(txtCosto.getText()));
+
+        if(controller.registrar(curso)){
+
+            JOptionPane.showMessageDialog(this,"Curso registrado");
+
+            listarCursos();
+
+            limpiar();
+
+        }else{
+
+            JOptionPane.showMessageDialog(this,"Error al registrar");
+
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnMostrarTodo1;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -131,7 +370,13 @@ public class PnlCurso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable tblCursos;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

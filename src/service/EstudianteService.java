@@ -17,16 +17,16 @@ public class EstudianteService {
     }
 
     //metodos
-    public void registrarEstudiante(Estudiante estudiante) {
-        estudianteDAO.registrar(estudiante);
+    public boolean registrarEstudiante(Estudiante estudiante) {
+        return estudianteDAO.registrar(estudiante);
     }
 
-    public void actualizarEstudiante(Estudiante estudiante) {
-        estudianteDAO.actualizar(estudiante);
+    public boolean actualizarEstudiante(Estudiante estudiante) {
+        return estudianteDAO.actualizar(estudiante);
     }
 
-    public void eliminarEstudiante(int id) {
-        estudianteDAO.eliminar(id);
+    public boolean eliminarEstudiante(int id) {
+        return estudianteDAO.eliminar(id);
     }
 
     public Estudiante buscarEstudiante(int id) {

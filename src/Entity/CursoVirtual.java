@@ -7,9 +7,9 @@ Principio OCP
  */
 public class CursoVirtual extends CursoBase{
 
-    public CursoVirtual(){
+    public CursoVirtual() {
 
-        super(0, "Curso Virtual", 300, "Virtual", null);
+        super(0, "Curso Virtual", 300, "Virtual");
 
     }
 

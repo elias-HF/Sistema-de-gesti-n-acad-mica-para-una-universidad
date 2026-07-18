@@ -1,41 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package controller;
 
-import Entity.Curso;
+
+import Entity.CursoBase;
 import java.util.List;
 import service.CursoService;
 
-/**
- *
- * @author USUARIO
- */
 public class CursoController {
-    private CursoService cursoService;
+     private CursoService cursoService;
 
-    public CursoController(CursoService cursoService){
+    public CursoController(CursoService cursoService) {
         this.cursoService = cursoService;
     }
 
-    public void registrarCurso(Curso curso){
-        cursoService.registrarCurso(curso);
+    public boolean registrar(CursoBase curso) {
+        return cursoService.registrar(curso);
     }
 
-    public void actualizarCurso(Curso curso){
-        cursoService.actualizarCurso(curso);
+    public boolean actualizar(CursoBase curso) {
+        return cursoService.actualizar(curso);
     }
 
-    public void eliminarCurso(int id){
-        cursoService.eliminarCurso(id);
+    public boolean eliminar(int id) {
+        return cursoService.eliminar(id);
     }
 
-    public Curso buscarCurso(int id){
-        return cursoService.buscarCurso(id);
+    public CursoBase buscar(int id) {
+        return cursoService.buscar(id);
     }
 
-    public List<Curso> listarCursos(){
-        return cursoService.listarCursos();
+    public List<CursoBase> listar() {
+        return cursoService.listar();
     }
 }

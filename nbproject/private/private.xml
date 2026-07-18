@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/PnlInscripcion.java</file>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/PnlCalificacion.java</file>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/PnlFacultad.java</file>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/FrmLogin.java</file>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/FrmMenuPrincipal.java</file>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/PnlCarrera.java</file>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/PnlCurso.java</file>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/PnlReporteAcademico.java</file>
-            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/formularios/PnlEstudiante.java</file>
+            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/controller/CarreraController.java</file>
+            <file>file:/D:/Usuarios/USUARIO_D/Documents/NetBeansProjects/ProyDDP/src/Entity/Carrera.java</file>
         </group>
     </open-files>
 </project-private>

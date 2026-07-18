@@ -8,11 +8,11 @@ import java.util.List;
 Principio DIP
 */
 public interface EstudianteDAO {
-    void registrar(Estudiante estudiante);
+    boolean  registrar(Estudiante estudiante);
 
-    void actualizar(Estudiante estudiante);
+    boolean  actualizar(Estudiante estudiante);
 
-    void eliminar(int id);
+    boolean  eliminar(int id);
 
     Estudiante buscarPorId(int id);
 

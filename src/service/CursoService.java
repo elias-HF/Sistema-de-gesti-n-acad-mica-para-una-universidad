@@ -1,11 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package service;
 
-import Entity.Curso;
+
+import Entity.CursoBase;
 import dao.CursoDAO;
+import dao.CursoDAOImp;
 import java.util.List;
 
 /**
@@ -13,29 +12,29 @@ import java.util.List;
  * @author USUARIO
  */
 public class CursoService {
-    private CursoDAO cursoDAO;
+    private CursoDAO dao;
 
-    public CursoService(CursoDAO cursoDAO) {
-        this.cursoDAO = cursoDAO;
+    public CursoService() {
+        dao = new CursoDAOImp();
     }
 
-    public void registrarCurso(Curso curso) {
-        cursoDAO.registrar(curso);
+    public boolean registrar(CursoBase curso) {
+        return dao.registrar(curso);
     }
 
-    public void actualizarCurso(Curso curso) {
-        cursoDAO.actualizar(curso);
+    public boolean actualizar(CursoBase curso) {
+        return dao.actualizar(curso);
     }
 
-    public void eliminarCurso(int id) {
-        cursoDAO.eliminar(id);
+    public boolean eliminar(int id) {
+        return dao.eliminar(id);
     }
 
-    public Curso buscarCurso(int id) {
-        return cursoDAO.buscarPorId(id);
+    public CursoBase buscar(int id) {
+        return dao.buscar(id);
     }
 
-    public List<Curso> listarCursos() {
-        return cursoDAO.listar();
+    public List<CursoBase> listar() {
+        return dao.listar();
     }
 }

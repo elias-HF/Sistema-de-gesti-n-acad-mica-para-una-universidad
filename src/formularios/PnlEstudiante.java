@@ -1,22 +1,91 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package formularios;
+
+import Entity.Carrera;
+import Entity.Estudiante;
+import controller.CarreraController;
+import controller.EstudianteController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author USUARIO
  */
 public class PnlEstudiante extends javax.swing.JPanel {
-
+    private EstudianteController controller;
+    private CarreraController carreraController;
+    private DefaultTableModel modelo;
     /**
      * Creates new form PnlEstudiante
      */
     public PnlEstudiante() {
         initComponents();
+        
+        controller = new EstudianteController();
+        carreraController = new CarreraController();
+        
+        
+        
+        
+        modelo = new DefaultTableModel();
+        String ids[] = {"ID", "Nombre", "Correo", "Carrera"};
+        modelo.setColumnIdentifiers(ids);
+        tblEstudiantes.setModel(modelo);
+        
+        cargarCarreras();
+        listarEstudiantes();
     }
+    
+    private void cargarCarreras(){
 
+        cmbCarrera.removeAllItems();
+
+        List<Carrera> lista = carreraController.listar();
+
+        for(Carrera c : lista){
+
+            cmbCarrera.addItem(c);
+
+        }
+
+    }
+    
+    private void listarEstudiantes(){
+
+        modelo.setRowCount(0);
+
+        List<Estudiante> lista = controller.listarEstudiantes();
+
+        for(Estudiante e : lista){
+
+            modelo.addRow(new Object[]{
+
+                e.getId(),
+                e.getNombre(),
+                e.getCorreo(),
+                e.getCarrera().getNombre()
+
+            });
+
+        }
+
+    }
+    
+    private void limpiar(){
+
+        txtId.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtBuscar.setText("");
+
+        if(cmbCarrera.getItemCount()>0){
+            cmbCarrera.setSelectedIndex(0);
+        }
+
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,7 +106,14 @@ public class PnlEstudiante extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbCarrera = new javax.swing.JComboBox<>();
+        txtId = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        btnMostrarTodo1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
 
         jLabel4.setText("jLabel4");
 
@@ -45,11 +121,16 @@ public class PnlEstudiante extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Gestion  de Estudiantes");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnRegistrar.setText("Registrar");
-        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
 
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnActualizar.setText("Actualizar");
@@ -58,7 +139,7 @@ public class PnlEstudiante extends javax.swing.JPanel {
                 btnActualizarActionPerformed(evt);
             }
         });
-        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
+        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -67,11 +148,11 @@ public class PnlEstudiante extends javax.swing.JPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
-        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, -1, -1));
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, -1, -1));
 
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnLimpiar.setText("Limpiar");
-        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, -1));
+        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, -1, -1));
 
         tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,46 +167,179 @@ public class PnlEstudiante extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblEstudiantes);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 730, 260));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 770, 220));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("ID");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("Nombre");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setText("Correo");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, -1, -1));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carrera", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+        cmbCarrera.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(cmbCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
+
+        txtId.setEditable(false);
+        txtId.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 190, -1));
+
+        txtNombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 190, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setText("Buscar por ID:");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, -1, -1));
+
+        btnMostrarTodo1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnMostrarTodo1.setText("Mostrar Todo");
+        btnMostrarTodo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodo1ActionPerformed(evt);
+            }
+        });
+        add(btnMostrarTodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, -1));
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, -1, -1));
+
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 200, -1));
+
+        txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 170, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+        Carrera carrera = (Carrera)cmbCarrera.getSelectedItem();
+
+        Estudiante estudiante = new Estudiante();
+
+        estudiante.setId(Integer.parseInt(txtId.getText()));
+        estudiante.setNombre(txtNombre.getText());
+        estudiante.setCorreo(txtCorreo.getText());
+        estudiante.setCarrera(carrera);
+
+        if(controller.actualizarEstudiante(estudiante)){
+
+            JOptionPane.showMessageDialog(this,"Actualizado");
+
+            listarEstudiantes();
+            limpiar();
+
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        int id = Integer.parseInt(txtId.getText());
+
+        if(controller.eliminarEstudiante(id)){
+
+            JOptionPane.showMessageDialog(this,"Eliminado");
+
+            listarEstudiantes();
+            limpiar();
+
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void btnMostrarTodo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodo1ActionPerformed
+        listarEstudiantes();
+        limpiar();
+    }//GEN-LAST:event_btnMostrarTodo1ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+ 
+         int id = Integer.parseInt(txtBuscar.getText());
+
+        Estudiante estudiante = controller.buscarEstudiante(id);
+
+        if(estudiante!=null){
+
+            txtId.setText(String.valueOf(estudiante.getId()));
+            txtNombre.setText(estudiante.getNombre());
+            txtCorreo.setText(estudiante.getCorreo());
+
+            cmbCarrera.setSelectedItem(estudiante.getCarrera());
+
+        }else{
+
+            JOptionPane.showMessageDialog(this,"No existe");
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        Carrera carrera = (Carrera) cmbCarrera.getSelectedItem();
+
+        Estudiante estudiante = new Estudiante();
+
+        estudiante.setNombre(txtNombre.getText());
+        estudiante.setCorreo(txtCorreo.getText());
+        estudiante.setCarrera(carrera);
+
+        if(controller.registrarEstudiante(estudiante)){
+
+            JOptionPane.showMessageDialog(this,"Estudiante registrado");
+
+            listarEstudiantes();
+            limpiar();
+
+        }else{
+
+            JOptionPane.showMessageDialog(this,"Error al registrar");
+
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnMostrarTodo1;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Carrera> cmbCarrera;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEstudiantes;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
