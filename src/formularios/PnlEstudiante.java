@@ -80,9 +80,6 @@ public class PnlEstudiante extends javax.swing.JPanel {
         txtCorreo.setText("");
         txtBuscar.setText("");
 
-        if(cmbCarrera.getItemCount()>0){
-            cmbCarrera.setSelectedIndex(0);
-        }
 
     }
     
@@ -152,6 +149,11 @@ public class PnlEstudiante extends javax.swing.JPanel {
 
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, -1, -1));
 
         tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
@@ -251,15 +253,27 @@ public class PnlEstudiante extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int id = Integer.parseInt(txtId.getText());
+        if (txtId.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un estudiante de la tabla para poder eliminarlo.");
+            return; // Este return evita que el código de abajo se ejecute si está vacío
+        }
+        
+        try {
+            int id = Integer.parseInt(txtId.getText().trim());
 
-        if(controller.eliminarEstudiante(id)){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar al estudiante?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
-            JOptionPane.showMessageDialog(this,"Eliminado");
-
-            listarEstudiantes();
-            limpiar();
-
+            if (opcion == JOptionPane.YES_OPTION) {
+                if(controller.eliminarEstudiante(id)){
+                    JOptionPane.showMessageDialog(this,"Eliminado");
+                    listarEstudiantes();
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(this,"No se pudo eliminar.");
+                }
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -298,6 +312,9 @@ public class PnlEstudiante extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        
+        
+        
         Carrera carrera = (Carrera) cmbCarrera.getSelectedItem();
 
         Estudiante estudiante = new Estudiante();
@@ -319,6 +336,11 @@ public class PnlEstudiante extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        listarEstudiantes();
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

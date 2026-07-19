@@ -2,70 +2,117 @@ package facade;
 
 
 import Entity.Calificacion;
-import service.CalificacionService;
+import Entity.Carrera;
 import Entity.Curso;
+import Entity.CursoBase;
 import Entity.Estudiante;
+import Entity.Facultad;
 import Entity.Inscripcion;
-import reportes.ImpresionReporte;
-import service.InscripcionService;
-import service.EstudianteService;
-import service.ReporteCalificaciones;
+import Entity.ReporteAcademico;
+import controller.CalificacionController;
+import controller.CarreraController;
+import controller.CursoController;
+import controller.EstudianteController;
+import controller.FacultadController;
+import controller.InscripcionController;
+import controller.ReporteAcademicoController;
+import java.util.List;
+import service.CursoService;
+
 
 
 public class SistemaAcademicoFacade {
     /*
     Patron Facade
     */
-    private EstudianteService estudianteService;
-    private InscripcionService inscripcionService;
-    private CalificacionService calificacionService;
-    private ReporteCalificaciones reporteService;
-    private ImpresionReporte impresora;
-    
-    public SistemaAcademicoFacade(
-        EstudianteService estudianteService,
-        InscripcionService inscripcionService,
-        CalificacionService calificacionService,
-        ReporteCalificaciones reporteService,
-        ImpresionReporte impresora) {
+    private FacultadController facultadController;
+    private CarreraController carreraController;
+    private EstudianteController estudianteController;
+    private CursoController cursoController;
+    private InscripcionController inscripcionController;
+    private CalificacionController calificacionController;
+    private ReporteAcademicoController reporteController;
 
-        this.estudianteService = estudianteService;
-        this.inscripcionService = inscripcionService;
-        this.calificacionService = calificacionService;
-        this.reporteService = reporteService;
-        this.impresora = impresora;
-}
+    public SistemaAcademicoFacade() {
 
-    public void procesoAcademico(Estudiante estudiante,
-                                 Curso curso,
-                                 double nota) {
+        facultadController = new FacultadController();
+        carreraController = new CarreraController();
+        estudianteController = new EstudianteController();
+        cursoController = new CursoController(new CursoService());
+        inscripcionController = new InscripcionController();
+        calificacionController = new CalificacionController();
+        reporteController = new ReporteAcademicoController();
 
-        // Registrar estudiante
-        estudianteService.registrarEstudiante(estudiante);
+    }
 
-        // Crear inscripción
-        Inscripcion inscripcion =
-                inscripcionService.inscribir(estudiante, curso);
+    //================ FACULTAD ==================
 
-        // Registrar nota
-        Calificacion calificacion =
-                new Calificacion(
-                        0,
-                        inscripcion,
-                        nota);
+    public boolean registrarFacultad(Facultad f){
+        return facultadController.registrar(f);
+    }
 
-        calificacionService.registrarCalificacion(calificacion);
+    public List<Facultad> listarFacultades(){
+        return facultadController.listar();
+    }
 
-        // Generar reporte
-        Calificacion reporte =
-                reporteService.generarReporte(calificacion);
+    //================ CARRERA ==================
 
-        // Imprimir reporte
-        impresora.imprimirReporteCalificacion(reporte);
+    public boolean registrarCarrera(Carrera c){
+        return carreraController.registrar(c);
+    }
 
-        System.out.println();
-        System.out.println("Proceso académico completado correctamente.");
+    public List<Carrera> listarCarreras(){
+        return carreraController.listar();
+    }
 
+    //================ ESTUDIANTE ==================
+
+    public boolean registrarEstudiante(Estudiante e){
+        return estudianteController.registrarEstudiante(e);
+    }
+
+    public List<Estudiante> listarEstudiantes(){
+        return estudianteController.listarEstudiantes();
+    }
+
+    //================ CURSO ==================
+
+    public boolean registrarCurso(CursoBase curso){
+        return cursoController.registrar(curso);
+    }
+
+    public List<CursoBase> listarCursos(){
+        return cursoController.listar();
+    }
+
+    //================ INSCRIPCION ==================
+
+    public boolean registrarInscripcion(Inscripcion i){
+        return inscripcionController.registrar(i);
+    }
+
+    public List<Inscripcion> listarInscripciones(){
+        return inscripcionController.listar();
+    }
+
+    //================ CALIFICACION ==================
+
+    public boolean registrarCalificacion(Calificacion c){
+        return calificacionController.registrar(c);
+    }
+
+    public List<Calificacion> listarCalificaciones(){
+        return calificacionController.listar();
+    }
+
+    //================ REPORTE ==================
+
+    public boolean registrarReporte(ReporteAcademico r){
+        return reporteController.registrar(r);
+    }
+
+    public List<ReporteAcademico> listarReportes(){
+        return reporteController.listar();
     }
 
 }

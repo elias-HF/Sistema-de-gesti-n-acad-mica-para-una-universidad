@@ -1,7 +1,7 @@
 
 package Entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -12,17 +12,17 @@ public class Inscripcion {
 
     private Estudiante estudiante;
 
-    private Curso curso;
+    private CursoBase curso;
 
-    private LocalDate fechaInscripcion;
+    private Date fechaInscripcion;
 
     public Inscripcion() {
     }
 
     public Inscripcion(int id,
                        Estudiante estudiante,
-                       Curso curso,
-                       LocalDate fechaInscripcion) {
+                       CursoBase curso,
+                       Date fechaInscripcion) {
 
         this.id = id;
         this.estudiante = estudiante;
@@ -47,19 +47,29 @@ public class Inscripcion {
         this.estudiante = estudiante;
     }
 
-    public Curso getCurso() {
+    public CursoBase getCurso() {
         return curso;
     }
 
-    public void setCurso(Curso curso) {
+    public void setCurso(CursoBase curso) {
         this.curso = curso;
     }
 
-    public LocalDate getFechaInscripcion() {
+    public Date getFechaInscripcion() {
         return fechaInscripcion;
     }
 
-    public void setFechaInscripcion(LocalDate fechaInscripcion) {
+    public void setFechaInscripcion(Date fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
+    
+    @Override
+    public String toString(){
+
+        return estudiante.getNombre()
+                + " - "
+                + curso.getNombreCurso();
+
+    }
+    
 }

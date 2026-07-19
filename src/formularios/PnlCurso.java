@@ -31,11 +31,17 @@ public class PnlCurso extends javax.swing.JPanel {
 
         tblCursos.setModel(modelo);
         
+        cmbTipo.removeAllItems();
+        cmbTipo.addItem("Presencial");
+        cmbTipo.addItem("Virtual");
+        cmbTipo.addItem("Híbrido");
+        
         listarCursos();
         limpiar();
     }
     private void limpiar(){
-
+        
+        
         txtId.setText("");
         txtNombre.setText("");
 
@@ -90,7 +96,6 @@ public class PnlCurso extends javax.swing.JPanel {
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCursos = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
         txtId = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtCosto = new javax.swing.JTextField();
@@ -177,10 +182,6 @@ public class PnlCurso extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 790, 250));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "data", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, -1, -1));
-
         txtId.setEditable(false);
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 180, -1));
@@ -192,7 +193,7 @@ public class PnlCurso extends javax.swing.JPanel {
         add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 160, -1));
 
         cmbTipo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        add(cmbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 90, -1));
+        add(cmbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 160, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel7.setText("Buscar por ID:");
@@ -363,7 +364,6 @@ public class PnlCurso extends javax.swing.JPanel {
     private javax.swing.JButton btnMostrarTodo1;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cmbTipo;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

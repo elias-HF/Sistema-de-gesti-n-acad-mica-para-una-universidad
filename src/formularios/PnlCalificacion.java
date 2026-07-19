@@ -1,22 +1,92 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package formularios;
 
-/**
- *
- * @author USUARIO
- */
+import Entity.Calificacion;
+import Entity.Inscripcion;
+import controller.CalificacionController;
+import controller.InscripcionController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class PnlCalificacion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PnlCalificacion
-     */
+    private CalificacionController controller;
+    private InscripcionController inscripcionController;
+
+    private DefaultTableModel modelo;
+    
+    
     public PnlCalificacion() {
         initComponents();
-    }
+        
+        controller = new CalificacionController();
+        inscripcionController = new InscripcionController();
+        
+        modelo = new DefaultTableModel();
+        String ids[] = {"ID", "Estudiante", "Curso", "Nota"};
+        modelo.setColumnIdentifiers(ids);
 
+
+        tblCalificaciones.setModel(modelo);
+        
+        cargarInscripciones();
+        listarCalificaciones();
+    }
+    
+    private void limpiar(){
+
+        txtId.setText("");
+
+        txtNota.setText("");
+
+        txtBuscar.setText("");
+
+        if(cmbInscripcion.getItemCount()>0)
+            cmbInscripcion.setSelectedIndex(0);
+
+    }
+    
+    private void cargarInscripciones(){
+
+    cmbInscripcion.removeAllItems();
+
+        List<Inscripcion> lista =
+                inscripcionController.listar();
+
+        for(Inscripcion i : lista){
+
+            cmbInscripcion.addItem(i);
+
+        }
+
+    }
+    
+    private void listarCalificaciones(){
+
+        modelo.setRowCount(0);
+
+        List<Calificacion> lista = controller.listar();
+
+        for(Calificacion c : lista){
+             modelo.addRow(new Object[]{
+
+            c.getId(),
+
+            c.getInscripcion()
+             .getEstudiante()
+             .getNombre(),
+
+            c.getInscripcion()
+             .getCurso()
+             .getNombreCurso(),
+
+            c.getNota()
+           });         
+        }
+
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,15 +100,21 @@ public class PnlCalificacion extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbInscripcion = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblCalificaciones = new javax.swing.JTable();
         txtId = new javax.swing.JTextField();
         txtNota = new javax.swing.JTextField();
+        btnLimpiar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btnMostrarTodo1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,33 +133,47 @@ public class PnlCalificacion extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("ID");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 108, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("Gestion  de Inscripciones");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        jLabel2.setText("Calificacion");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, -1, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inscripcion", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
+        cmbInscripcion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(cmbInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("Nota");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton2.setText("Registrar");
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton3.setText("Actualizar");
-        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, -1));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton4.setText("Eliminar");
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, -1, -1));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblCalificaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -94,30 +184,226 @@ public class PnlCalificacion extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        tblCalificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCalificacionesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblCalificaciones);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 730, 300));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 770, 260));
 
+        txtId.setEditable(false);
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 140, -1));
+        add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 160, -1));
 
         txtNota.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 90, -1));
+        add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 90, -1));
+
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setText("Buscar por ID:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+
+        btnMostrarTodo1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnMostrarTodo1.setText("Mostrar Todo");
+        btnMostrarTodo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodo1ActionPerformed(evt);
+            }
+        });
+        add(btnMostrarTodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 270, -1, -1));
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, -1, -1));
+
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 200, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setText("Inscripcion:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtId.setText("");
+
+        txtNota.setText("");
+        
+        txtBuscar.setText("");
+
+        if(cmbInscripcion.getItemCount()>0)
+        cmbInscripcion.setSelectedIndex(0);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnMostrarTodo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodo1ActionPerformed
+        listarCalificaciones();
+        limpiar();
+    }//GEN-LAST:event_btnMostrarTodo1ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+            if (txtBuscar.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID para buscar");
+            return;
+        }
+
+        try {
+            
+            int id = Integer.parseInt(txtBuscar.getText().trim());
+
+            
+            Calificacion c = controller.buscar(id); 
+
+            
+            if (c != null) {
+                txtId.setText(String.valueOf(c.getId()));
+                txtNota.setText(String.valueOf(c.getNota()));
+
+                
+                cmbInscripcion.setSelectedItem(c.getInscripcion());
+
+            } else {
+                JOptionPane.showMessageDialog(this, "La calificación con el ID especificado no existe");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID debe ser un número entero válido", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if (cmbInscripcion.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione una inscripción.");
+            return;
+        }
+        if (txtNota.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la nota.");
+            return;
+        }
+
+        try {
+            Calificacion calificacion = new Calificacion();
+            calificacion.setInscripcion((Inscripcion) cmbInscripcion.getSelectedItem());
+            calificacion.setNota(Double.parseDouble(txtNota.getText().trim()));
+
+            if (controller.registrar(calificacion)) {
+                JOptionPane.showMessageDialog(this, "Calificación registrada.");
+                listarCalificaciones();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo registrar.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La nota debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+       if (txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Busque o seleccione una calificación para actualizar.");
+            return;
+        }
+        if (txtNota.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la nota.");
+            return;
+        }
+
+        try {
+            Calificacion calificacion = new Calificacion();
+            calificacion.setId(Integer.parseInt(txtId.getText()));
+            calificacion.setInscripcion((Inscripcion) cmbInscripcion.getSelectedItem());
+            calificacion.setNota(Double.parseDouble(txtNota.getText().trim()));
+
+            if (controller.actualizar(calificacion)) {
+                JOptionPane.showMessageDialog(this, "Actualizado.");
+                listarCalificaciones();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Verifique los datos numéricos ingresados.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if (txtId.getText().isEmpty()) return;
+
+        int opcion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Eliminar calificación?",
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            if (controller.eliminar(Integer.parseInt(txtId.getText()))) {
+                JOptionPane.showMessageDialog(this, "Calificación eliminada.");
+                listarCalificaciones();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar.");
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblCalificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCalificacionesMouseClicked
+        int fila = tblCalificaciones.getSelectedRow();
+        if (fila != -1) {
+            int idCalificacion = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+            
+            
+            Calificacion c = controller.buscar(idCalificacion);
+            
+            if (c != null) {
+                txtId.setText(String.valueOf(c.getId()));
+                txtNota.setText(String.valueOf(c.getNota()));
+                cmbInscripcion.setSelectedItem(c.getInscripcion());
+            }
+        }
+    }//GEN-LAST:event_tblCalificacionesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnMostrarTodo1;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<Inscripcion> cmbInscripcion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tblCalificaciones;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNota;
     // End of variables declaration//GEN-END:variables

@@ -13,40 +13,43 @@ Registra y valida la nota
  */
 public class CalificacionService {
     
-    private CalificacionDAO calificacionDAO;
+        private CalificacionDAO dao;
 
-    public CalificacionService(CalificacionDAO calificacionDAO) {
-        this.calificacionDAO = calificacionDAO;
-    }
+        public CalificacionService(CalificacionDAO dao) {
 
-    public void registrarCalificacion(Calificacion calificacion){
+            this.dao = dao;
 
-        if(!Validaciones.validarNota(calificacion.getNota())){
-            throw new IllegalArgumentException(
-                    "La nota debe estar entre 0 y 20.");
         }
 
-        calificacionDAO.registrar(calificacion);
+        public boolean registrar(Calificacion calificacion) {
 
-        System.out.println("Calificación registrada.");
+            return dao.registrar(calificacion);
 
-    }
+        }
 
-    public void actualizarCalificacion(Calificacion calificacion){
-        calificacionDAO.actualizar(calificacion);
-    }
+        public boolean actualizar(Calificacion calificacion) {
 
-    public void eliminarCalificacion(int id){
-        calificacionDAO.eliminar(id);
-    }
+            return dao.actualizar(calificacion);
 
-    public Calificacion buscarCalificacion(int id){
-        return calificacionDAO.buscarPorId(id);
-    }
+        }
 
-    public List<Calificacion> listarCalificaciones(){
-        return calificacionDAO.listar();
-    }
+        public boolean eliminar(int id) {
+
+            return dao.eliminar(id);
+
+        }
+
+        public Calificacion buscar(int id) {
+
+            return dao.buscar(id);
+
+        }
+
+        public List<Calificacion> listar() {
+
+            return dao.listar();
+
+        }
 
     
     

@@ -94,8 +94,11 @@ public class EstudianteDAOImpl implements EstudianteDAO{
     public Estudiante buscarPorId(int id) {
 
         String sql =
-            "SELECT e.id, e.nombre, e.correo, " +
-            "c.id AS carrera_id, c.nombre " +
+            "SELECT e.id, " +
+            "e.nombre AS estudiante_nombre, " +
+            "e.correo, " +
+            "c.id AS carrera_id, " +
+            "c.nombre AS carrera_nombre " +
             "FROM estudiante e " +
             "INNER JOIN carrera c ON e.carrera_id = c.id " +
             "WHERE e.id=?";
@@ -113,12 +116,12 @@ public class EstudianteDAOImpl implements EstudianteDAO{
 
                 Carrera carrera = new Carrera();
                 carrera.setId(rs.getInt("carrera_id"));
-                carrera.setNombre(rs.getString("nombre"));
+                carrera.setNombre(rs.getString("carrera_nombre"));
 
                 Estudiante estudiante = new Estudiante();
 
                 estudiante.setId(rs.getInt("id"));
-                estudiante.setNombre(rs.getString("nombre"));
+                estudiante.setNombre(rs.getString("estudiante_nombre"));
                 estudiante.setCorreo(rs.getString("correo"));
                 estudiante.setCarrera(carrera);
 
@@ -142,8 +145,11 @@ public class EstudianteDAOImpl implements EstudianteDAO{
         List<Estudiante> lista = new ArrayList<>();
 
         String sql =
-            "SELECT e.id, e.nombre, e.correo, " +
-            "c.id AS carrera_id, c.nombre " +
+            "SELECT e.id, " +
+            "e.nombre AS estudiante_nombre, " +
+            "e.correo, " +
+            "c.id AS carrera_id, " +
+            "c.nombre AS carrera_nombre " +
             "FROM estudiante e " +
             "INNER JOIN carrera c ON e.carrera_id = c.id";
 
@@ -158,12 +164,11 @@ public class EstudianteDAOImpl implements EstudianteDAO{
 
                 Carrera carrera = new Carrera();
                 carrera.setId(rs.getInt("carrera_id"));
-                carrera.setNombre(rs.getString("nombre"));
+                carrera.setNombre(rs.getString("carrera_nombre"));
 
                 Estudiante estudiante = new Estudiante();
-
                 estudiante.setId(rs.getInt("id"));
-                estudiante.setNombre(rs.getString("nombre"));
+                estudiante.setNombre(rs.getString("estudiante_nombre"));
                 estudiante.setCorreo(rs.getString("correo"));
                 estudiante.setCarrera(carrera);
 

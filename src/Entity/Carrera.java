@@ -45,6 +45,6 @@ public class Carrera {
     }
     @Override
     public String toString() {
-        return nombre;
+        return this.nombre;
     }
 }

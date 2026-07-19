@@ -1,22 +1,121 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package formularios;
 
-/**
- *
- * @author USUARIO
- */
-public class PnlInscripcion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PnlInscripcion
-     */
+import Entity.CursoBase;
+import Entity.Estudiante;
+import Entity.Inscripcion;
+import controller.CursoController;
+import controller.EstudianteController;
+import controller.InscripcionController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import service.CursoService;
+
+
+
+public class PnlInscripcion extends javax.swing.JPanel {
+    private InscripcionController controller;
+    private EstudianteController estudianteController;
+    private CursoController cursoController;
+
+    private DefaultTableModel modelo;
+    
     public PnlInscripcion() {
         initComponents();
-    }
+        controller = new InscripcionController();
 
+        estudianteController =
+                new EstudianteController();
+
+        cursoController =
+                new CursoController(new CursoService());
+        
+        modelo = new DefaultTableModel();
+        String ids[] = {"ID", "Estudiante", "Curso", "Fecha Inscripcion"};
+        modelo.setColumnIdentifiers(ids);
+
+
+        tblInscripciones.setModel(modelo);
+        
+        
+        cargarEstudiantes();
+        cargarCursos();
+
+        listarInscripciones();
+
+        limpiar();
+        
+    }
+    
+    private void limpiar(){
+
+        txtId.setText("");
+        txtBuscar.setText("");
+
+        if (cmbEstudiante.getItemCount() > 0)
+            cmbEstudiante.setSelectedIndex(0);
+
+        if (cmbCurso.getItemCount() > 0)
+            cmbCurso.setSelectedIndex(0);
+
+        dcFecha.setDate(null);
+
+    }
+    
+    private void cargarEstudiantes(){
+
+        cmbEstudiante.removeAllItems();
+
+        List<Estudiante> lista =
+                estudianteController.listarEstudiantes();
+
+        for(Estudiante e : lista){
+
+            cmbEstudiante.addItem(e);
+
+        }
+
+    }
+    
+    private void cargarCursos(){
+
+        cmbCurso.removeAllItems();
+
+        List<CursoBase> lista =
+                cursoController.listar();
+
+        for(CursoBase c : lista){
+
+            cmbCurso.addItem(c);
+
+        }
+
+    }
+    private void listarInscripciones(){
+
+        modelo.setRowCount(0);
+
+        List<Inscripcion> lista =
+                controller.listar();
+
+        for(Inscripcion i : lista){
+
+            modelo.addRow(new Object[]{
+
+                i.getId(),
+                i.getEstudiante().getNombre(),
+                i.getCurso().getNombreCurso(),
+                i.getFechaInscripcion()
+
+            });
+
+        }
+
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,14 +128,24 @@ public class PnlInscripcion extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmbEstudiante = new javax.swing.JComboBox<>();
+        cmbCurso = new javax.swing.JComboBox<>();
         btnRegistrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblInscripciones = new javax.swing.JTable();
+        txtId = new javax.swing.JTextField();
+        btnLimpiar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        btnBuscar = new javax.swing.JButton();
+        btnMostrarTodo = new javax.swing.JButton();
+        dcFecha = new com.toedter.calendar.JDateChooser();
 
         jButton1.setText("jButton1");
 
@@ -44,37 +153,51 @@ public class PnlInscripcion extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Gestion  de Inscripciones");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("ID");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estudiante", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        cmbEstudiante.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(cmbEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Curso", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, -1, -1));
+        cmbCurso.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cmbCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCursoActionPerformed(evt);
+            }
+        });
+        add(cmbCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, -1, -1));
 
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, -1, -1));
-
-        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnRegistrar.setText("Registrar");
-        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
-        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnActualizar.setText("Actualizar");
-        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, -1, -1));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, -1, -1));
 
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnEliminar.setText("Eliminar");
-        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, -1, -1));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblInscripciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -85,23 +208,248 @@ public class PnlInscripcion extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblInscripciones);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 770, 250));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 780, 230));
+
+        txtId.setEditable(false);
+        txtId.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, -1));
+
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setText("Estudiante");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setText("Curso");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setText("Fecha");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Buscar por ID:");
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnMostrarTodo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnMostrarTodo.setText("Mostrar Todo");
+        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(31, 31, 31)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(btnBuscar)
+                .addGap(35, 35, 35)
+                .addComponent(btnMostrarTodo)
+                .addGap(33, 33, 33))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnMostrarTodo)
+                    .addComponent(jLabel7))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 780, 80));
+
+        dcFecha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(dcFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 200, 30));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        Estudiante estudiante =
+            (Estudiante) cmbEstudiante.getSelectedItem();
+
+        CursoBase curso =
+                (CursoBase) cmbCurso.getSelectedItem();
+
+        Inscripcion inscripcion = new Inscripcion();
+
+        inscripcion.setId(Integer.parseInt(txtId.getText()));
+        inscripcion.setEstudiante(estudiante);
+        inscripcion.setCurso(curso);
+        
+        
+        inscripcion.setFechaInscripcion(dcFecha.getDate());
+
+        if(controller.actualizar(inscripcion)){
+
+            JOptionPane.showMessageDialog(this,"Actualizado");
+
+            listarInscripciones();
+            limpiar();
+
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if(txtId.getText().isEmpty()) return;
+
+        int opcion=JOptionPane.showConfirmDialog(
+                this,
+                "¿Eliminar facultad?",
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION);
+
+        if(opcion==JOptionPane.YES_OPTION){
+
+            controller.eliminar(Integer.parseInt(txtId.getText()));
+
+            listarInscripciones();
+
+            limpiar();
+
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if(txtBuscar.getText().trim().isEmpty()){
+        JOptionPane.showMessageDialog(this, "Ingrese un ID");
+        return;
+        }
+
+        int id = Integer.parseInt(txtBuscar.getText());
+
+        Inscripcion inscripcion = controller.buscar(id);
+
+        if(inscripcion != null){
+
+            txtId.setText(String.valueOf(inscripcion.getId()));
+
+            cmbEstudiante.setSelectedItem(inscripcion.getEstudiante());
+
+            cmbCurso.setSelectedItem(inscripcion.getCurso());
+
+            dcFecha.setDate(inscripcion.getFechaInscripcion());
+
+        }else{
+
+            JOptionPane.showMessageDialog(this, "No existe la inscripción");
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
+        listarInscripciones();
+        limpiar();
+    }//GEN-LAST:event_btnMostrarTodoActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if (cmbEstudiante.getSelectedItem() == null ||
+        cmbCurso.getSelectedItem() == null ||
+        dcFecha.getDate() == null) {
+
+        JOptionPane.showMessageDialog(this,
+                "Complete todos los campos.");
+            return;
+        }
+
+        Estudiante estudiante =
+                (Estudiante) cmbEstudiante.getSelectedItem();
+
+        CursoBase curso =
+                (CursoBase) cmbCurso.getSelectedItem();
+
+        Inscripcion inscripcion = new Inscripcion();
+
+        inscripcion.setEstudiante(estudiante);
+        inscripcion.setCurso(curso);
+        inscripcion.setFechaInscripcion(dcFecha.getDate());
+
+        if (controller.registrar(inscripcion)) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Inscripción registrada correctamente.");
+
+            listarInscripciones();
+            limpiar();
+
+        } else {
+
+            JOptionPane.showMessageDialog(this,
+                    "Error al registrar la inscripción.");
+
+        }
+
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void cmbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCursoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnMostrarTodo;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<CursoBase> cmbCurso;
+    private javax.swing.JComboBox<Estudiante> cmbEstudiante;
+    private com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblInscripciones;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }

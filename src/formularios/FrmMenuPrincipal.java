@@ -1,6 +1,7 @@
 
 package formularios;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -38,7 +39,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         pnlContenido = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
-        itemCerrarSession = new javax.swing.JMenuItem();
         itemSalir = new javax.swing.JMenuItem();
         menuMantenimiento = new javax.swing.JMenu();
         itemFacultad = new javax.swing.JMenuItem();
@@ -106,7 +106,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(panelInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 750, 30));
+        jPanel1.add(panelInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, 750, 30));
 
         javax.swing.GroupLayout pnlContenidoLayout = new javax.swing.GroupLayout(pnlContenido);
         pnlContenido.setLayout(pnlContenidoLayout);
@@ -116,20 +116,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         );
         pnlContenidoLayout.setVerticalGroup(
             pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
 
-        jPanel1.add(pnlContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 750, 520));
+        jPanel1.add(pnlContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 750, 550));
 
         menuArchivo.setText("Archivo");
-
-        itemCerrarSession.setText("Cerrar session");
-        itemCerrarSession.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCerrarSessionActionPerformed(evt);
-            }
-        });
-        menuArchivo.add(itemCerrarSession);
 
         itemSalir.setText("Salir");
         itemSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -232,22 +224,28 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void itemCerrarSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCerrarSessionActionPerformed
-        //mostrarPanel(newFrmLogin);
-    }//GEN-LAST:event_itemCerrarSessionActionPerformed
 
     private void itemFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFacultadActionPerformed
         mostrarPanel(new PnlFacultad());
     }//GEN-LAST:event_itemFacultadActionPerformed
 
     private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
-        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro que desea salir del sistema?",
+            "Salir",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+
+        if(opcion == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+
     }//GEN-LAST:event_itemSalirActionPerformed
 
     private void itemCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCarreraActionPerformed
@@ -275,49 +273,18 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemReporteActionPerformed
 
     private void itemAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAcercaDeActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"Parte no implementada todavia....");
     }//GEN-LAST:event_itemAcercaDeActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmMenuPrincipal().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemAcercaDe;
     private javax.swing.JMenuItem itemCalificacion;
     private javax.swing.JMenuItem itemCarrera;
-    private javax.swing.JMenuItem itemCerrarSession;
     private javax.swing.JMenuItem itemCurso;
     private javax.swing.JMenuItem itemEstudiante;
     private javax.swing.JMenuItem itemFacultad;

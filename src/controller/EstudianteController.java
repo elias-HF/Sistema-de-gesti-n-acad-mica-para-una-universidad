@@ -10,29 +10,29 @@ import service.EstudianteService;
 public class EstudianteController {
     
     
-    private EstudianteService service;
+    private EstudianteService estudianteService;
 
-    public EstudianteController() {
-        service = new EstudianteService(new EstudianteDAOImpl());
+    public EstudianteController( ) {
+        estudianteService = new EstudianteService(new EstudianteDAOImpl());
     }
 
-    public boolean  registrarEstudiante(Estudiante estudiante){
-        return service.registrarEstudiante(estudiante);
+    public boolean registrarEstudiante(Estudiante estudiante) {
+        return estudianteService.registrarEstudiante(estudiante);
     }
 
-    public boolean  actualizarEstudiante(Estudiante estudiante){
-        return service.actualizarEstudiante(estudiante);
+    public boolean actualizarEstudiante(Estudiante estudiante) {
+        return estudianteService.actualizarEstudiante(estudiante);
     }
 
-    public boolean eliminarEstudiante(int id){
-        return service.eliminarEstudiante(id);
+    public boolean eliminarEstudiante(int id) {
+        return estudianteService.eliminarEstudiante(id);
     }
 
-    public Estudiante buscarEstudiante(int id){
-        return service.buscarEstudiante(id);
+    public Estudiante buscarEstudiante(int id) {
+        return estudianteService.buscarEstudiante(id);
     }
 
-    public List<Estudiante> listarEstudiantes(){
-        return service.listarEstudiantes();
+    public List<Estudiante> listarEstudiantes() {
+        return estudianteService.listarEstudiantes();
     }
 }

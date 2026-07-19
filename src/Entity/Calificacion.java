@@ -47,6 +47,20 @@ public class Calificacion {
     }
 
     
-    
-    
+    @Override
+    public String toString() {
+
+        if(inscripcion != null &&
+           inscripcion.getEstudiante() != null &&
+           inscripcion.getCurso() != null){
+
+            return inscripcion.getEstudiante().getNombre()
+                    + " - "
+                    + inscripcion.getCurso().getNombreCurso()
+                    + " (" + nota + ")";
+
+        }
+
+        return "Calificación " + id;
+    }
 }

@@ -1,22 +1,105 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package formularios;
 
-/**
- *
- * @author USUARIO
- */
+import Entity.Calificacion;
+import Entity.ReporteAcademico;
+import controller.CalificacionController;
+import controller.ReporteAcademicoController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
+
 public class PnlReporteAcademico extends javax.swing.JPanel {
-
-    /**
-     * Creates new form PnlReporteAcademico
-     */
+    private ReporteAcademicoController controller;
+    private CalificacionController calificacionController;
+    
+    private DefaultTableModel modelo;
+    
     public PnlReporteAcademico() {
+        
         initComponents();
-    }
+        
+        controller = new ReporteAcademicoController();
 
+        calificacionController = new CalificacionController();
+        
+        modelo = new DefaultTableModel();
+        String ids[] = {"ID", "Estudiante", "Curso", "Nota", "Observacion"};
+        modelo.setColumnIdentifiers(ids);
+
+
+        tblReportes.setModel(modelo);
+        cargarCalificaciones();
+
+        listarReportes();
+        
+        
+    }
+    
+    private void limpiar(){
+
+        txtId.setText("");
+
+        txtObservacion.setText("");
+
+        txtBuscar.setText("");
+
+        if(cmbCalificacion.getItemCount()>0)
+            cmbCalificacion.setSelectedIndex(0);
+
+    }
+    
+    private void cargarCalificaciones(){
+
+        cmbCalificacion.removeAllItems();
+
+        List<Calificacion> lista =
+                calificacionController.listar();
+
+        for(Calificacion c : lista){
+
+            cmbCalificacion.addItem(c);
+
+        }
+
+    }
+    
+    private void listarReportes(){
+
+        modelo.setRowCount(0);
+
+        List<ReporteAcademico> lista =
+                controller.listar();
+
+        for(ReporteAcademico r : lista){
+
+            modelo.addRow(new Object[]{
+
+                r.getId(),
+
+                r.getCalificacion()
+                 .getInscripcion()
+                 .getEstudiante()
+                 .getNombre(),
+
+                r.getCalificacion()
+                 .getInscripcion()
+                 .getCurso()
+                 .getNombreCurso(),
+
+                r.getCalificacion()
+                 .getNota(),
+
+                r.getObservacion()
+
+            });
+
+        }
+
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,12 +111,24 @@ public class PnlReporteAcademico extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        cmbCalificacion = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblReportes = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        btnRegistrar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        btnBuscar = new javax.swing.JButton();
+        btnMostrarTodo = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtObservacion = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
 
         setMaximumSize(new java.awt.Dimension(751, 563));
         setMinimumSize(new java.awt.Dimension(751, 563));
@@ -41,35 +136,17 @@ public class PnlReporteAcademico extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("Reporte Academico");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
+        jLabel2.setText("Gestion de Reportes Academicos");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Observacion");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Observacion:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Calificacion", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        cmbCalificacion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        add(cmbCalificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton1.setText("Generar");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton2.setText("Imprimir");
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
-
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton3.setText("Impremir por Consola");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, -1, -1));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,24 +157,277 @@ public class PnlReporteAcademico extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblReportesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblReportes);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 750, 240));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 780, 230));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setText("Id Reporte:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setText("Calificacion");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+
+        txtId.setEditable(false);
+        txtId.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 150, -1));
+
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, -1, -1));
+
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, -1, -1));
+
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, -1, -1));
+
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Buscar por ID:");
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnMostrarTodo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnMostrarTodo.setText("Mostrar Todo");
+        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(31, 31, 31)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(btnBuscar)
+                .addGap(35, 35, 35)
+                .addComponent(btnMostrarTodo)
+                .addGap(33, 33, 33))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnMostrarTodo)
+                    .addComponent(jLabel7))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 780, 80));
+
+        txtObservacion.setColumns(20);
+        txtObservacion.setRows(5);
+        jScrollPane2.setViewportView(txtObservacion);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 690, 100));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 200, 30, 100));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        Calificacion calificacion=
+            (Calificacion)cmbCalificacion.getSelectedItem();
+
+        ReporteAcademico reporte=new ReporteAcademico();
+
+        reporte.setCalificacion(calificacion);
+
+        reporte.setObservacion(txtObservacion.getText());
+
+        if(controller.registrar(reporte)){
+
+            JOptionPane.showMessageDialog(this,"Reporte registrado");
+
+            listarReportes();
+
+            limpiar();
+
+        }else{
+
+            JOptionPane.showMessageDialog(this,"Error al registrar");
+
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        Calificacion calificacion=
+            (Calificacion)cmbCalificacion.getSelectedItem();
+
+        ReporteAcademico reporte=new ReporteAcademico();
+
+        reporte.setId(Integer.parseInt(txtId.getText()));
+
+        reporte.setCalificacion(calificacion);
+
+        reporte.setObservacion(txtObservacion.getText());
+
+        if(controller.actualizar(reporte)){
+
+            JOptionPane.showMessageDialog(this,"Actualizado");
+
+            listarReportes();
+
+            limpiar();
+
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int id=Integer.parseInt(txtId.getText());
+
+        if(controller.eliminar(id)){
+
+            JOptionPane.showMessageDialog(this,"Eliminado");
+
+            listarReportes();
+
+            limpiar();
+
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        int id=Integer.parseInt(txtBuscar.getText());
+
+        ReporteAcademico reporte=
+                controller.buscar(id);
+
+        if(reporte!=null){
+
+            txtId.setText(
+                    String.valueOf(reporte.getId()));
+
+            txtObservacion.setText(
+                    reporte.getObservacion());
+
+            cmbCalificacion.setSelectedItem(
+                    reporte.getCalificacion());
+
+        }else{
+
+            JOptionPane.showMessageDialog(this,"No existe");
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
+        listarReportes();
+
+        limpiar();
+    }//GEN-LAST:event_btnMostrarTodoActionPerformed
+
+    private void tblReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReportesMouseClicked
+       int fila=tblReportes.getSelectedRow();
+
+        if(fila!=-1){
+
+            int id=Integer.parseInt(
+                    modelo.getValueAt(fila,0).toString());
+
+            ReporteAcademico reporte=
+                    controller.buscar(id);
+
+            if(reporte!=null){
+
+                txtId.setText(
+                        String.valueOf(reporte.getId()));
+
+                txtObservacion.setText(
+                        reporte.getObservacion());
+
+                cmbCalificacion.setSelectedItem(
+                        reporte.getCalificacion());
+
+            }
+
+        }
+    }//GEN-LAST:event_tblReportesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnMostrarTodo;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<Calificacion> cmbCalificacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblReportes;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextArea txtObservacion;
     // End of variables declaration//GEN-END:variables
 }

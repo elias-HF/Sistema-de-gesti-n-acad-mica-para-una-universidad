@@ -1,24 +1,40 @@
 package service;
 
-import Entity.Curso;
-import Entity.Estudiante;
+
 import Entity.Inscripcion;
-import java.time.LocalDate;
+import dao.InscripcionDAO;
+import dao.InscripcionDAOImp;
+import java.util.List;
 
 /*
 Principio SRP
  */
 public class InscripcionService {
     
-    
-    
-    public Inscripcion inscribir(Estudiante estudiante,Curso curso){
+    private InscripcionDAO dao;
 
-        System.out.println("Inscribiendo estudiante al curso...");
+    public InscripcionService() {
+        dao = new InscripcionDAOImp();
+    }
 
-        Inscripcion inscripcion = new Inscripcion(0,estudiante,curso,LocalDate.now());
+    public boolean registrar(Inscripcion inscripcion) {
+        return dao.registrar(inscripcion);
+    }
 
-        return inscripcion;
+    public boolean actualizar(Inscripcion inscripcion) {
+        return dao.actualizar(inscripcion);
+    }
+
+    public boolean eliminar(int id) {
+        return dao.eliminar(id);
+    }
+
+    public Inscripcion buscar(int id) {
+        return dao.buscar(id);
+    }
+
+    public List<Inscripcion> listar() {
+        return dao.listar();
     }
     
 }

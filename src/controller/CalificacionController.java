@@ -1,41 +1,48 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package controller;
 
 import Entity.Calificacion;
+import dao.CalificacionDAOImpl;
 import java.util.List;
 import service.CalificacionService;
 
-/**
- *
- * @author USUARIO
- */
+
 public class CalificacionController {
-    private CalificacionService calificacionService;
+        private CalificacionService service;
 
-    public CalificacionController(CalificacionService calificacionService) {
-        this.calificacionService = calificacionService;
-    }
+        public CalificacionController() {
 
-    public void registrarCalificacion(Calificacion calificacion){
-        calificacionService.registrarCalificacion(calificacion);
-    }
+            service = new CalificacionService(new CalificacionDAOImpl());
 
-    public void actualizarCalificacion(Calificacion calificacion){
-        calificacionService.actualizarCalificacion(calificacion);
-    }
+        }
 
-    public void eliminarCalificacion(int id){
-        calificacionService.eliminarCalificacion(id);
-    }
+        public boolean registrar(Calificacion calificacion) {
 
-    public Calificacion buscarCalificacion(int id){
-        return calificacionService.buscarCalificacion(id);
-    }
+            return service.registrar(calificacion);
 
-    public List<Calificacion> listarCalificaciones(){
-        return calificacionService.listarCalificaciones();
-    }
+        }
+
+        public boolean actualizar(Calificacion calificacion) {
+
+            return service.actualizar(calificacion);
+
+        }
+
+        public boolean eliminar(int id) {
+
+            return service.eliminar(id);
+
+        }
+
+        public Calificacion buscar(int id) {
+
+            return service.buscar(id);
+
+        }
+
+        public List<Calificacion> listar() {
+
+            return service.listar();
+
+        }
 }

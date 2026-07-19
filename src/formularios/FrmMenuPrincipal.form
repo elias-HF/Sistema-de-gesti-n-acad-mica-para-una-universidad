@@ -9,14 +9,6 @@
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemCerrarSession">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cerrar session"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemCerrarSessionActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemSalir">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salir"/>
@@ -154,7 +146,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="633" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="650" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -224,7 +216,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="600" width="750" height="30"/>
+              <AbsoluteConstraints x="0" y="620" width="750" height="30"/>
             </Constraint>
           </Constraints>
 
@@ -262,7 +254,7 @@
         <Container class="javax.swing.JPanel" name="pnlContenido">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="70" width="750" height="520"/>
+              <AbsoluteConstraints x="0" y="70" width="750" height="550"/>
             </Constraint>
           </Constraints>
 
@@ -274,7 +266,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="520" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="550" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

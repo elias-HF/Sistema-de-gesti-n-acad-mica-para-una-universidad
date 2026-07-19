@@ -12,13 +12,13 @@ import java.util.List;
  * @author USUARIO
  */
 public interface CalificacionDAO {
-    void registrar(Calificacion calificacion);
+    boolean registrar(Calificacion calificacion);
 
-    void actualizar(Calificacion calificacion);
+    boolean actualizar(Calificacion calificacion);
 
-    void eliminar(int id);
+    boolean eliminar(int id);
 
-    Calificacion buscarPorId(int id);
+    Calificacion buscar(int id);
 
     List<Calificacion> listar();
 }
